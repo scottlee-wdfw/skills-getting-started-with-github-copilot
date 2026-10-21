@@ -74,6 +74,42 @@ activities = {
         "schedule": "Tuesdays, 3:30 PM - 4:30 PM",
         "max_participants": 16,
         "participants": []
+    },
+    "Volleyball Club": {
+        "description": "Practice volleyball skills and play team matches",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": []
+    },
+    "Track and Field": {
+        "description": "Train for running, jumping, and throwing events",
+        "schedule": "Mondays, 3:30 PM - 5:00 PM",
+        "max_participants": 24,
+        "participants": []
+    },
+    "Photography Club": {
+        "description": "Learn photography techniques and create visual projects",
+        "schedule": "Thursdays, 3:30 PM - 4:30 PM",
+        "max_participants": 14,
+        "participants": []
+    },
+    "Choir": {
+        "description": "Develop vocal skills and perform music together",
+        "schedule": "Tuesdays, 3:30 PM - 4:30 PM",
+        "max_participants": 24,
+        "participants": []
+    },
+    "Robotics Club": {
+        "description": "Design, build, and program robots to solve challenges",
+        "schedule": "Fridays, 3:30 PM - 5:00 PM",
+        "max_participants": 16,
+        "participants": []
+    },
+    "History Club": {
+        "description": "Explore historical events through research and discussion",
+        "schedule": "Thursdays, 3:30 PM - 4:30 PM",
+        "max_participants": 16,
+        "participants": []
     }
 }
 
@@ -100,6 +136,11 @@ def signup_for_activity(activity_name: str, email: str):
 
     if email in activity["participants"]:
         raise HTTPException(status_code=409, detail="Student is already signed up")
+
+    # Validate student is not already signed up
+    for activity in activities.values():
+        if email in activity["participants"]:
+            raise HTTPException(status_code=409, detail="Student is already signed up for another activity")
 
     # Add student
     activity["participants"].append(email)
